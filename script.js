@@ -1,33 +1,29 @@
-//your JS code here. If required.
- document.getElementById("voteForm").addEventListener("submit", function (e) {
-      e.preventDefault(); // prevent actual form submission
+document.getElementById("voteForm").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-      const name = document.getElementById("name").value.trim();
-      const age = document.getElementById("age").value.trim();
+  const name = document.getElementById("name").value.trim();
+  const age = document.getElementById("age").value.trim();
 
-      // Validation
-      if (name === "" || age === "") {
-        alert("Please enter valid details.");
-        return;
+  if (name === "" || age === "") {
+    alert("Please enter valid details"); 
+    return;
+  }
+
+  const ageNum = parseInt(age);
+
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (ageNum > 18) {
+        resolve();
+      } else {
+        reject();
       }
-
-      // Convert age to number
-      const ageNum = parseInt(age);
-
-      // Create the promise
-      new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (ageNum > 18) {
-            resolve();
-          } else {
-            reject();
-          }
-        }, 4000);
-      })
-      .then(() => {
-        alert(`Welcome, ${name}. You can vote.`);
-      })
-      .catch(() => {
-        alert(`Oh sorry ${name}. You aren't old enough.`);
-      });
-    });
+    }, 4000);
+  })
+  .then(() => {
+    alert(`Welcome, ${name}. You can vote.`);
+  })
+  .catch(() => {
+    alert(`Oh sorry ${name}. You aren't old enough.`);
+  });
+});
